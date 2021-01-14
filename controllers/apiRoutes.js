@@ -3,6 +3,8 @@ const Workout = require("../models/Workout");
 const router = require("express").Router();
 
 // route: /api/workouts
+// aggregate
+// $addfields
 router.get("/workouts", async (req, res) => {
     try {
         const dbWorkoutData = await Workout.find();
@@ -14,7 +16,6 @@ router.get("/workouts", async (req, res) => {
     }
 });
 
-// Needs to query to get last workout?
 router.get("/excercise", async (req, res) => {
     try {
         const dbWorkoutData = await Workout.find();
@@ -29,8 +30,8 @@ router.get("/excercise", async (req, res) => {
 router.post("/workouts", async (req, res) => {
     try {
         // console.log(req.body);
-        const workout = await new Workout(req.body);
-        await workout.save();
+        // const workout = await new Workout();
+        const workout = await Workout.create({});
         // console.log({ workout });
         res.status(200).json({
             message: "Created new Workout",
