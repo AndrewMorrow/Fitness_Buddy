@@ -23,7 +23,7 @@ router.get("/workouts", async (req, res) => {
 });
 
 // route: /api/workouts/range
-router.get("/workouts", async (req, res) => {
+router.get("/workouts/range", async (req, res) => {
     try {
         // const dbWorkoutData = await Workout.find();
         const totalDuration = await Workout.aggregate([
@@ -33,7 +33,7 @@ router.get("/workouts", async (req, res) => {
                 },
             },
         ]);
-        console.log({ totalDuration });
+        // console.log({ totalDuration });
         // console.log({ dbWorkoutData });
         res.status(200).json(totalDuration);
     } catch (err) {
@@ -71,7 +71,10 @@ router.post("/workouts", async (req, res) => {
 
 router.put("/workouts/:id", async (req, res) => {
     try {
-        console.log(req.body);
+        if (req.body.name === "")
+            return res.status(400).json({ message: "Workout not saved" });
+
+        // console.log(req.body);
         const id = req.params.id;
         const updateWorkout = await Workout.updateOne(
             { _id: id },
