@@ -1,12 +1,19 @@
 let mongoose = require("mongoose");
 let db = require("../models");
 // const Workout = require("../models/Workout");
+require("dotenv").config();
 
-mongoose.connect("mongodb://localhost/workout", {
-    useNewUrlParser: true,
-    useFindAndModify: false,
-});
-
+mongoose.connect(
+    process.env.MONGODB_URI || "mongodb://localhost/fitnessTracker",
+    {
+        useNewUrlParser: true,
+        useFindAndModify: false,
+        useUnifiedTopology: true,
+    },
+    (err) => {
+        console.log("mongo connection", err);
+    }
+);
 let workoutSeed = [
     {
         day: new Date().setDate(new Date().getDate() - 10),

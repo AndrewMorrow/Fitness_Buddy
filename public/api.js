@@ -11,11 +11,7 @@ const API = {
         return json[json.length - 1];
     },
     async addExercise(data) {
-        // what is this trying to do?
         const id = location.search.split("=")[1];
-        // id is coming back undefined
-        // http://localhost:3001/api/workouts/undefined route it is hitting
-        // console.log(id);
         const res = await fetch("/api/workouts/" + id, {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
