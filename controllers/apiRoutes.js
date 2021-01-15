@@ -3,13 +3,39 @@ const Workout = require("../models/Workout");
 const router = require("express").Router();
 
 // route: /api/workouts
-// aggregate
-// $addfields
 router.get("/workouts", async (req, res) => {
     try {
-        const dbWorkoutData = await Workout.find();
+        // const dbWorkoutData = await Workout.find();
+        const totalDuration = await Workout.aggregate([
+            {
+                $addFields: {
+                    totalDuration: { $sum: "$exercises.duration" },
+                },
+            },
+        ]);
+        console.log({ totalDuration });
         // console.log({ dbWorkoutData });
-        res.status(200).json(dbWorkoutData);
+        res.status(200).json(totalDuration);
+    } catch (err) {
+        console.log(err);
+        res.status(500).json(err);
+    }
+});
+
+// route: /api/workouts/range
+router.get("/workouts", async (req, res) => {
+    try {
+        // const dbWorkoutData = await Workout.find();
+        const totalDuration = await Workout.aggregate([
+            {
+                $addFields: {
+                    totalDuration: { $sum: "$exercises.duration" },
+                },
+            },
+        ]);
+        console.log({ totalDuration });
+        // console.log({ dbWorkoutData });
+        res.status(200).json(totalDuration);
     } catch (err) {
         console.log(err);
         res.status(500).json(err);
