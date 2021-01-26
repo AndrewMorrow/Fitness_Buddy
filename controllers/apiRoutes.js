@@ -5,7 +5,6 @@ const router = require("express").Router();
 // route: /api/workouts
 router.get("/workouts", async (req, res) => {
     try {
-        // const dbWorkoutData = await Workout.find();
         const totalDuration = await Workout.aggregate([
             {
                 $addFields: {
@@ -14,7 +13,6 @@ router.get("/workouts", async (req, res) => {
             },
         ]);
         console.log({ totalDuration });
-        // console.log({ dbWorkoutData });
         res.status(200).json(totalDuration);
     } catch (err) {
         console.log(err);
@@ -25,7 +23,6 @@ router.get("/workouts", async (req, res) => {
 // route: /api/workouts/range
 router.get("/workouts/range", async (req, res) => {
     try {
-        // const dbWorkoutData = await Workout.find();
         const totalDuration = await Workout.aggregate([
             {
                 $addFields: {
@@ -33,8 +30,6 @@ router.get("/workouts/range", async (req, res) => {
                 },
             },
         ]);
-        // console.log({ totalDuration });
-        // console.log({ dbWorkoutData });
         res.status(200).json(totalDuration);
     } catch (err) {
         console.log(err);
@@ -45,7 +40,6 @@ router.get("/workouts/range", async (req, res) => {
 router.get("/excercise", async (req, res) => {
     try {
         const dbWorkoutData = await Workout.find();
-        // console.log({ dbWorkoutData });
         res.status(200).json(dbWorkoutData);
     } catch (err) {
         console.log(err);
@@ -55,10 +49,7 @@ router.get("/excercise", async (req, res) => {
 
 router.post("/workouts", async (req, res) => {
     try {
-        // console.log(req.body);
-        // const workout = await new Workout();
         const workout = await Workout.create({});
-        // console.log({ workout });
         res.status(200).json({
             message: "Created new Workout",
             createdWorkout: workout,
@@ -73,8 +64,6 @@ router.put("/workouts/:id", async (req, res) => {
     try {
         if (req.body.name === "")
             return res.status(400).json({ message: "Workout not saved" });
-
-        // console.log(req.body);
         const id = req.params.id;
         const updateWorkout = await Workout.updateOne(
             { _id: id },

@@ -1,6 +1,5 @@
 let mongoose = require("mongoose");
 let db = require("../models");
-// const Workout = require("../models/Workout");
 require("dotenv").config();
 
 mongoose.connect(

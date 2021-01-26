@@ -1,5 +1,4 @@
 const router = require("express").Router();
-// const {} = require(".././models");
 const path = require("path");
 
 //           Home Page
